@@ -10,9 +10,14 @@ class GitLabFormDsl {
     private var gitlab: GitLabDsl? = null
     private var skipGroups: SkipDsl? = null
     private var skipProjects: SkipDsl? = null
+    private var projectsAndGroups: ProjectsAndGroupsDsl? = null
 
     fun gitlab(block: GitLabDsl.() -> Unit) {
         this.gitlab = this.gitlab ?: GitLabDsl().apply(block)
+    }
+
+    fun projectsAndGroups(block: ProjectsAndGroupsDsl.() -> Unit) {
+        this.projectsAndGroups = this.projectsAndGroups ?: ProjectsAndGroupsDsl().apply(block)
     }
 
     fun skipGroups(block: SkipDsl.() -> Unit) {

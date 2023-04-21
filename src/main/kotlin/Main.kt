@@ -1,4 +1,5 @@
-import gitlabformkt.gitlabForm
+import gitlabformkt.*
+import gitlabformkt.AccessLevel.*
 import kotlin.time.Duration.Companion.seconds
 
 fun main(args: Array<String>) {
@@ -10,11 +11,20 @@ fun main(args: Array<String>) {
             timeout(10.seconds)
         }
 
-//        projectsAndGroups {
-//            common()
-//            allInGroup()
-//            projects()
-//        }
+        projectsAndGroups {
+            "*" {
+                branches(
+                    branch("develop")
+                        .unprotected(),
+                    branch("main")
+                        .protected {
+                            pushAccessLevel = no_access
+                            mergeAccessLevel = developer
+                            unprotectAccessLevel = maintainer
+                        }
+                )
+            }
+        }
 
         skipProjects {
             +"my-group/this-project-will-not-be-processed-with-gitlabform"
