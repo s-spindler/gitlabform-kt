@@ -15,6 +15,17 @@ fun main(args: Array<String>) {
 //            allInGroup()
 //            projects()
 //        }
+
+        skipProjects {
+            +"my-group/this-project-will-not-be-processed-with-gitlabform"
+            +"my-group/and-this-project0too"
+            +"my-group/everything-under/*"
+        }
+
+        skipGroups {
+            +"my-other-group"
+            +"this-group-and-all-sub-groups/*"
+        }
     }
 
     gf.println()
