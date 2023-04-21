@@ -1,7 +1,21 @@
-fun main(args: Array<String>) {
-    println("Hello World!")
+import gitlabformkt.gitlabForm
+import kotlin.time.Duration.Companion.seconds
 
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
-    println("Program arguments: ${args.joinToString()}")
+fun main(args: Array<String>) {
+    val gf = gitlabForm {
+        gitlab {
+            url("https://gitlab.yourcompany.com")
+            token("<private token of an admin user>")
+            sslVerify(true)
+            timeout(10.seconds)
+        }
+
+//        projectsAndGroups {
+//            common()
+//            allInGroup()
+//            projects()
+//        }
+    }
+
+    gf.println()
 }
