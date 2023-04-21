@@ -5,17 +5,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 class ProjectsAndGroupsDsl {
 
-    private val projectsAndGroupConfigurations: MutableList<ProjectsAndGroupConfiguration> = mutableListOf()
-
-    operator fun String.unaryPlus(): ProjectsAndGroupConfiguration {
-        val config = ProjectsAndGroupConfiguration(this)
-        this@ProjectsAndGroupsDsl.projectsAndGroupConfigurations.add(config)
-        return config
-    }
+    private val projectsAndGroupConfigurations: MutableMap<String, ProjectsAndGroupConfiguration> = mutableMapOf()
 
     operator fun String.invoke(block: ProjectsAndGroupConfiguration.() -> Unit) {
-        val config = ProjectsAndGroupConfiguration(this).apply(block)
-        this@ProjectsAndGroupsDsl.projectsAndGroupConfigurations.add(config)
+        val config = ProjectsAndGroupConfiguration().apply(block)
+        this@ProjectsAndGroupsDsl.projectsAndGroupConfigurations[this] = config
     }
 
 }

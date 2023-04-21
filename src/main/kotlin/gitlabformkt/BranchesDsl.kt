@@ -1,10 +1,10 @@
 package gitlabformkt
 
-class BranchesDsl {
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
-}
-
-open class BranchDsl(private val name: String) {
+@Serializable
+open class BranchDsl(@Transient open val name: String = "") {
 
     fun unprotected() = UnprotectedBranchDsl(name)
 
@@ -15,9 +15,15 @@ open class BranchDsl(private val name: String) {
     }
 }
 
-class UnprotectedBranchDsl(name: String) : BranchDsl(name)
+@Serializable
+class UnprotectedBranchDsl(override val name: String) : BranchDsl(name) {
+    val protected = false
+}
 
-class ProtectedBranchDsl(name: String) : BranchDsl(name) {
+@Serializable
+class ProtectedBranchDsl(override val name: String) : BranchDsl(name) {
+
+    val protected = true
 
     var pushAccessLevel: AccessLevel? = null
 
@@ -27,6 +33,7 @@ class ProtectedBranchDsl(name: String) : BranchDsl(name) {
 
 }
 
+@Serializable
 enum class AccessLevel {
     no_access,
     minimal_access,
@@ -39,10 +46,6 @@ enum class AccessLevel {
     override fun toString(): String {
         return this.name.replace('_', ' ')
     }
-}
-
-fun branches(vararg branches: BranchDsl): BranchesDsl {
-    return BranchesDsl()
 }
 
 fun branch(name: String): BranchDsl {
