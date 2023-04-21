@@ -1,0 +1,4 @@
+GitLabForm-kt is a tool to generate the yaml file used by https://gitlabform.github.io[GitLabForm] from
+a Kotlin DSL configuration.
+
+CAUTION: GitLabForm-kt is still highly experimental!
